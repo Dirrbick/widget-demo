@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "vsts-extensions-myExtensions",
-  "version": "1.0.17",
+  "version": "1.0.63",
   "name": "Hello World Widget",
   "description": "Samples containing different widgets extending dashboards",
   "publisher": "KoryJackson",
@@ -55,6 +55,37 @@
                     ],
                 "supportedScopes": ["project_team"]
             }
+        },
+        {
+            "id": "HelloWorldWidget3",
+            "type": "ms.vss-dashboards-web.widget",
+            "targets": [
+                "ms.vss-dashboards-web.widget-catalog",
+                "KoryJackson.vsts-extensions-myExtensions.HelloWorldWidget.Configuration"
+            ],
+            "properties": {
+                "name": "Hello World Widget 3 (with config)",
+                "description": "My third widget",
+                "previewImageUrl": "img/preview3.png",                       
+                "uri": "hello-world3.html",
+                "supportedSizes": [
+                     {
+                            "rowSpan": 1,
+                            "columnSpan": 2
+                        }
+                    ],
+                "supportedScopes": ["project_team"]
+            }
+        },
+        {
+            "id": "HelloWorldWidget.Configuration",
+            "type": "ms.vss-dashboards-web.widget-configuration",
+            "targets": [ "ms.vss-dashboards-web.widget-configuration" ],
+            "properties": {
+                "name": "HelloWorldWidget Configuration",
+                "description": "Configures HelloWorldWidget",
+                "uri": "configuration.html"
+            }
         }
 
     ],
@@ -64,6 +95,12 @@
         },
         {
             "path": "hello-world2.html", "addressable": true
+        },
+        {
+            "path": "hello-world3.html", "addressable": true
+        },
+        {
+            "path": "configuration.html", "addressable": true
         },      
         {
             "path": "sdk/node_modules/vss-web-extension-sdk/lib/VSS.SDK.min.js", "addressable": true

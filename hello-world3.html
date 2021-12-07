@@ -11,33 +11,45 @@
             VSS.require(["TFS/Dashboards/WidgetHelpers", "TFS/WorkItemTracking/RestClient"], 
             function (WidgetHelpers, TFS_Wit_WebApi) {
                 WidgetHelpers.IncludeWidgetStyles();
-                VSS.register("HelloWorldWidget2", function () {                
-
-                    const getInfo = (e) => {
-                        const url = 'https://pokeapi.co/api/v2/pokemon';
+                VSS.register("HelloWorldWidget3", function () {                
+                    const submitInput = (info) => {
                         let $select = $("#selector");
                         $select.empty();
 
+                        let settings = JSON.parse(info.customSettings.data);
+                        if (!settings && !settings.queryPath) {
+                            $select.append($("<p>").text("Configure the widget"));
+                            console.log('in if with !url', url);
+                            return WidgetHelpers.WidgetStatusHelper.Success();                     
+                          }
+
+                        let $list = $('<select>');
+                        const url = settings.queryPath;
+                        
                         return fetch(url)
                         .then(response => response.json())
                         .then(data => {
                             data.results.forEach(item => {
-                                $select.append($("<option>").text(item.name));
+                                $list.append($("<options>").text(item.name));
                             return;
                         });
+                        $select.append($list);
                         return WidgetHelpers.WidgetStatusHelper.Success();
                         }, function(error) {
-                            return WidgetHelpers.WidgetStatusHelper.Failure(erroe.message);
+                            return WidgetHelpers.WidgetStatusHelper.Failure(error.message);
                         })
                     }
-                    
+
                     return {
                         load: function (widgetSettings) {
                             // Set your title
                             var $title = $('h2.title');
-                            $title.text('Hello World API');
-
-                            return getInfo(widgetSettings);
+                            $title.text('Hello World Configuration');
+                            return submitInput(widgetSettings);
+                        },
+                        reload: function (widgetSettings) {
+                            console.log('in reload')
+                          return submitInput(widgetSettings); 
                         }
                     }
                 });
@@ -49,7 +61,7 @@
 <body>
     <div class="widget">
         <h2 class="title"></h2>
-        <select id="selector"></select>
+        <div id="selector"></div>
     </div>
 </body>
 </html>
