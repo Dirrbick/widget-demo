@@ -11,39 +11,19 @@
           VSS.require("TFS/Dashboards/WidgetHelpers", function (WidgetHelpers) {
               VSS.register("HelloWorldWidget.Configuration", function () {   
                   var $urlInput = $("#url-input");
-
-                  const getInfo = (info) => {
-                        let $select = $("#selector");
-                        $select.empty();
-                        console.log({info})
-                        return fetch(info)
-                        .then(response => response.json())
-                        .then(data => {
-                            data.results.forEach(item => {
-                                $select.append($("<option>").text(item.name));
-                            return;
-                        });
-                        return WidgetHelpers.WidgetStatusHelper.Success();
-                        }, function(error) {
-                            return WidgetHelpers.WidgetStatusHelper.Failure(erroe.message);
-                        })
-                    }
-
-
                   return {
                       load: function (widgetSettings, widgetConfigurationContext) {
                             $urlInput.on("change", function (e) {
-                                var customSettings = {data: JSON.stringify({queryPath: $urlInput.val()})};
-                                var eventName = WidgetHelpers.WidgetEvent.ConfigurationChange;
-                                var eventArgs = WidgetHelpers.WidgetEvent.Args(customSettings);
+                                let customSettings = {data: JSON.stringify({queryPath: $urlInput.val()})};
+                                let eventName = WidgetHelpers.WidgetEvent.ConfigurationChange;
+                                let eventArgs = WidgetHelpers.WidgetEvent.Args(customSettings);
                                 widgetConfigurationContext.notify(eventName, eventArgs);
-                                getInfo($urlInput.val());
                             });
 
                           return WidgetHelpers.WidgetStatusHelper.Success();
                       },
                       onSave: function() {
-                          var customSettings = {data: JSON.stringify({queryPath: $urlInput.val()})};
+                          let customSettings = {data: JSON.stringify({queryPath: $urlInput.val()})};
                           console.log('onSave', customSettings);
                           return WidgetHelpers.WidgetConfigurationSave.Valid(customSettings); 
                       }
@@ -56,11 +36,15 @@
   <body>
     <div class="container">
       <fieldset>
-        <input id="url-input"></input>
+        <input id="title-input" placeholder="Enter Title"></input>
+        <input id="url-input" placeholder="Enter API URL"></input>
+        <input type="radio" name="color" id="get" value="#F00">
+        <label for="get">GET</label>
+        <input type="radio" name="color" id="post" value="#0F0">
+        <label for="post">POST</label>
+        <input type="radio" name="color" id="delete" value="#00F">
+        <label for="delete">DELETE</label>
       </fieldset>     
-        </br>
-        </br>
-      <select id="selector" style="margin-top:10px"></select>
-    </div>
+      </div>
   </body>
 </html>

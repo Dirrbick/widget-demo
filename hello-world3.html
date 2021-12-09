@@ -15,28 +15,31 @@
                     const submitInput = (info) => {
 
                         let settings = JSON.parse(info.customSettings.data);
-                        console.log('in if', settings);
-                        if (!settings && !settings.queryPath) {
-                            let $select = $("#selector");
-                            $select.append($("<p>").text("Configure the widget"));
+                        if (!settings) {
+                            let $divSelectOption = $("#divSelect");
+                            $divSelectOption.empty();
+                            console.log('in if', settings);
+                            $divSelectOption.append($("<p>").text("Configure the widget"));
                             return WidgetHelpers.WidgetStatusHelper.Success();                     
                           } else {
-                            let $select = $("#selector");
-                            let $list = $('<select>');
-                            console.log("in the else", settings, settings.queryPath);
-                            return fetch(settings.queryPath)
+                            let $divSelectOption = $("#divSelect");
+                            $divSelectOption.empty();
+                            const url = settings.queryPath;
+
+                            return fetch(url)
                             .then(response => response.json())
                             .then(data => {
-                                $select.empty();
+                                let $select = $('<select>');
                                 data.results.forEach(item => {
-                                    $list.append($("<options>").text(item.name));
-                                        return;
-                                    });
-                                    $select.append($list);
-                                    return WidgetHelpers.WidgetStatusHelper.Success();
-                                }, function(error) {
-                                    return WidgetHelpers.WidgetStatusHelper.Failure(error.message);
-                                })
+                                    $select.append($("<option>").text(item.name));
+                                return;
+                            });
+                            $divSelectOption.append($select);
+                            return WidgetHelpers.WidgetStatusHelper.Success();
+                            }, function(error) {
+                                return WidgetHelpers.WidgetStatusHelper.Failure(erroe.message);
+                            })
+
                             }
                     }
 
@@ -48,6 +51,8 @@
                             return submitInput(widgetSettings);
                         },
                         reload: function (widgetSettings) {
+                            let $select = $("#divSelect");
+                            $select.empty();
                             console.log('in reload')
                           return submitInput(widgetSettings); 
                         }
@@ -61,7 +66,9 @@
 <body>
     <div class="widget">
         <h2 class="title"></h2>
-        <div id="selector"></div>
+        <div id="divSelect">
+
+        </div>
     </div>
 </body>
 </html>

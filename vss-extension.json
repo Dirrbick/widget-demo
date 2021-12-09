@@ -1,7 +1,7 @@
 {
   "manifestVersion": 1,
   "id": "vsts-extensions-myExtensions",
-  "version": "1.0.72",
+  "version": "1.0.1",
   "name": "Hello World Widget",
   "description": "Samples containing different widgets extending dashboards",
   "publisher": "KoryJackson",
