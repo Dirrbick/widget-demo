@@ -2,7 +2,7 @@
   "manifestVersion": 1,
   "id": "vsts-extensions-myExtensions",
   "version": "1.0.2",
-  "name": "Hello World Widget",
+  "name": "Hello-World-Widget",
   "description": "Samples containing different widgets extending dashboards",
   "publisher": "KoryJackson",
   "categories": ["Azure Boards"],
