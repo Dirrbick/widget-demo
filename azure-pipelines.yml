@@ -24,7 +24,8 @@ stages:
             inputs:
               targetType: "inline"
               script: |
-                tfx extension create --manifest-globs vss-extension.json
+                cd widget-demo
+                tsc
           - task: QueryAzureDevOpsExtensionVersion@3
             inputs:
               connectTo: 'VsTeam'
