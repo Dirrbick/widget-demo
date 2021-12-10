@@ -5,7 +5,7 @@ pool:
   vmImage: "ubuntu-latest"
 
 variables:
-  - group: Hello World Variables # Rename to whatever you named your variable group in the prerequisite stage of step 6
+  - group: Hello-World-Variable # Rename to whatever you named your variable group in the prerequisite stage of step 6
 
 stages:
   - stage: Package_extension_and_publish_build_artifacts
