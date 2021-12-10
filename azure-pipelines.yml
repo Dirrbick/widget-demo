@@ -18,14 +18,13 @@ stages:
           - task: Npm@1
             inputs:
               command: 'install'
-              workingDir: '/package.json' # Update to the name of the directory of your task
+#               workingDir: '/package.json' # Update to the name of the directory of your task
           - task: Bash@3
             displayName: Compile Javascript
             inputs:
               targetType: "inline"
               script: |
-                cd TaskDirectory # Update to the name of the directory of your task
-                tsc
+                tfx extension create --manifest-globs vss-extension.json
           - task: QueryAzureDevOpsExtensionVersion@3
             inputs:
               connectTo: 'VsTeam'
